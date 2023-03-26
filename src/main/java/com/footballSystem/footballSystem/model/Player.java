@@ -23,8 +23,8 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "year")
-    private String year;
+    @Column(name = "birth_year")
+    private String birthYear;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerParticipation> playerParticipations = new ArrayList<>();
