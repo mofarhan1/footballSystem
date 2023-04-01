@@ -8,7 +8,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @Table(name = "player_participations")
 public class PlayerParticipation {
 
@@ -26,9 +25,12 @@ public class PlayerParticipation {
     @JoinColumn(name = "player_id")
     private Player player;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "match_id")
-    private Match match;
+
+
+    public PlayerParticipation() {
+        this.cancelled = false;
+        this.reason = null;
+    }
 
 
 }

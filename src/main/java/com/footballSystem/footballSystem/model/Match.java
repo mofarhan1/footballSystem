@@ -31,9 +31,13 @@ public class Match {
     @Column(name = "time")
     private LocalTime time;
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "match_id")
     private List<PlayerParticipation> playerParticipationList = new ArrayList<>();
 
 
+    public List<PlayerParticipation> getParticipationList() {
+        return new ArrayList<>(playerParticipationList);
+    }
 }
 

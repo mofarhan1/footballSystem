@@ -14,6 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "players")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name = "player_type",
+        discriminatorType = DiscriminatorType.STRING)
+
 public class Player {
 
     @Id
