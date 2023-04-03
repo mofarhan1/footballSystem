@@ -28,6 +28,11 @@ public class Player {
     @Column(name = "name")
     private String name;
 
+    public Player(String name, String birthYear) {
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+
     @Column(name = "birth_year")
     private String birthYear;
 

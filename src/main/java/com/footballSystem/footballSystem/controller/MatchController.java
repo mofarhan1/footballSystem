@@ -1,25 +1,33 @@
 package com.footballSystem.footballSystem.controller;
 
 import com.footballSystem.footballSystem.model.Match;
+import com.footballSystem.footballSystem.model.Player;
 import com.footballSystem.footballSystem.model.PlayerParticipation;
 import com.footballSystem.footballSystem.repository.MatchRepository;
+import com.footballSystem.footballSystem.repository.PlayerParticipationRepository;
+import com.footballSystem.footballSystem.repository.PlayerRepository;
 import com.footballSystem.footballSystem.service.MatchService;
+import com.footballSystem.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class MatchController {
     private final MatchRepository matchRepository;
+    private final PlayerParticipationRepository playerParticipationRepository;
+    private final PlayerRepository playerRepository;
     private final MatchService matchService;
 
-    public MatchController(MatchRepository matchRepository , MatchService matchService) {
+    public MatchController(MatchRepository matchRepository , MatchService matchService, PlayerParticipationRepository playerParticipationRepository,PlayerRepository playerRepository) {
         this.matchRepository =matchRepository;
         this.matchService =matchService;
+        this.playerParticipationRepository =playerParticipationRepository;
+        this.playerRepository =playerRepository;
     }
 
 
@@ -35,16 +43,21 @@ public class MatchController {
 
         Match msavedMatch =   matchService.saveMatch(match);
 
-
         return new ResponseEntity<>(msavedMatch, HttpStatus.OK);
     }
 
-    @PostMapping("/createPlayerParticipation")
-    public PlayerParticipation createPlayerParticipation(PlayerParticipation playerParticipation){
-        PlayerParticipation playerParticipation1 = new PlayerParticipation();
+    @PostMapping("/createPlayerParticipation/{playerID}/{matchID}")
+    public ResponseEntity<PlayerParticipation> createPlayerParticipation(@PathVariable Long playerID,@PathVariable Long matchID){
+        PlayerParticipation playerParticipation = new PlayerParticipation();
+        Player player = playerRepository.findById(playerID).orElseThrow( ()->new ResourceNotFoundException("Player not found"));
+        Match match = matchRepository.findById(matchID).orElseThrow( ()->new ResourceNotFoundException("Match not found"));
+        playerParticipation.setPlayer(player);
+        match.getPlayerParticipationList().add(playerParticipation);
 
-        return playerParticipation1;
+        PlayerParticipation savedPlayerParticipation =  playerParticipationRepository.save(playerParticipation);
 
+
+        return new ResponseEntity<>( savedPlayerParticipation, HttpStatus.OK);
     }
 
 

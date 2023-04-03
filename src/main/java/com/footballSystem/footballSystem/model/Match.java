@@ -28,6 +28,12 @@ public class Match {
     @Column(name = "date")
     private LocalDate date;
 
+    public Match(String location, LocalDate date, LocalTime time) {
+        this.location = location;
+        this.date = date;
+        this.time = time;
+    }
+
     @Column(name = "time")
     private LocalTime time;
 

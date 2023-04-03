@@ -19,4 +19,8 @@ public class ProPlayer extends Player {
     private double matchFee;
 
 
+    public ProPlayer(String name, String birthYear, double matchFee) {
+        super(name, birthYear);
+        this.matchFee = matchFee;
+    }
 }
