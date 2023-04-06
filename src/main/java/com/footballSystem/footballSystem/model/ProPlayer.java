@@ -23,4 +23,23 @@ public class ProPlayer extends Player {
         super(name, birthYear);
         this.matchFee = matchFee;
     }
+
+
+    /*
+    The salary for a pro player is the matchFee times the
+    percentage of matches,the player has played out of the matches
+    the player has been selected for.
+   */
+    public double salary() {
+        double sal = 0.0;
+        int numOfPLayed = 0;
+
+
+        for (PlayerParticipation pp : this.getPlayerParticipations()) {
+            if (!pp.isCancelled()) {
+                numOfPLayed++;
+            }
+        }
+        return this.getMatchFee()*((numOfPLayed/this.getPlayerParticipations().size())*100);
+    }
 }

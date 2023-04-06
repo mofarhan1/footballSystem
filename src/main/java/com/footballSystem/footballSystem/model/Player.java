@@ -40,5 +40,18 @@ public class Player {
     private List<PlayerParticipation> playerParticipations = new ArrayList<>();
 
 
-}
+    /*
+    The salary for an ordinary player is 20 times the number of played matches.
+     */
+    public double salary() {
+        int numOfPLayed = 0;
 
+
+        for (PlayerParticipation pp : this.playerParticipations) {
+            if (!pp.isCancelled()) {
+                numOfPLayed++;
+            }
+        }
+        return 20.0*numOfPLayed;
+    }
+}
