@@ -3,6 +3,7 @@ package com.footballSystem.footballSystem.controller;
 import com.footballSystem.footballSystem.model.Match;
 import com.footballSystem.footballSystem.model.Player;
 import com.footballSystem.footballSystem.model.PlayerParticipation;
+import com.footballSystem.footballSystem.model.ProPlayer;
 import com.footballSystem.footballSystem.repository.MatchRepository;
 import com.footballSystem.footballSystem.repository.PlayerParticipationRepository;
 import com.footballSystem.footballSystem.repository.PlayerRepository;
@@ -59,6 +60,24 @@ public class MatchController {
 
         return new ResponseEntity<>( savedPlayerParticipation, HttpStatus.OK);
     }
+
+    @GetMapping("/getSalary/{playerID}")
+    public ResponseEntity<Double> getSalary(@PathVariable Long playerID){
+        double sal=0.0;
+        Player player = playerRepository.findById(playerID).orElseThrow( ()->new ResourceNotFoundException("Player not found"));
+        if( player instanceof ProPlayer){
+             sal = ((ProPlayer)player).salary();
+
+        }
+        else {
+
+            sal = player.salary();
+        }
+
+        return new ResponseEntity<>( sal, HttpStatus.OK);
+    }
+
+
 
 
 }

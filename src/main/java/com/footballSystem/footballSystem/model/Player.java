@@ -1,5 +1,6 @@
 package com.footballSystem.footballSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Player {
     private String birthYear;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PlayerParticipation> playerParticipations = new ArrayList<>();
 
 
@@ -45,8 +47,6 @@ public class Player {
      */
     public double salary() {
         int numOfPLayed = 0;
-
-
         for (PlayerParticipation pp : this.playerParticipations) {
             if (!pp.isCancelled()) {
                 numOfPLayed++;

@@ -1,5 +1,6 @@
 package com.footballSystem.footballSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class PlayerParticipation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
+    @JsonIgnore
     private Player player;
 
 
@@ -30,6 +32,11 @@ public class PlayerParticipation {
     public PlayerParticipation() {
         this.cancelled = false;
         this.reason = null;
+    }
+
+    public PlayerParticipation(Boolean cancelled, String reason) {
+        this.cancelled = cancelled;
+        this.reason = reason;
     }
 
 

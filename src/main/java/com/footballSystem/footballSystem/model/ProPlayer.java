@@ -33,13 +33,13 @@ public class ProPlayer extends Player {
     public double salary() {
         double sal = 0.0;
         int numOfPLayed = 0;
-
-
         for (PlayerParticipation pp : this.getPlayerParticipations()) {
             if (!pp.isCancelled()) {
                 numOfPLayed++;
             }
         }
-        return this.getMatchFee()*((numOfPLayed/this.getPlayerParticipations().size())*100);
+        double percentage = (numOfPLayed*1.0 / this.getPlayerParticipations().size()*1.0)*100.0;
+        sal = this.getMatchFee()*percentage;
+        return sal;
     }
 }

@@ -1,5 +1,6 @@
 package com.footballSystem.footballSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,7 @@ public class Match {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "match_id")
+    @JsonIgnore
     private List<PlayerParticipation> playerParticipationList = new ArrayList<>();
 
 
