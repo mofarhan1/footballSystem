@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class MatchController {
     private final MatchRepository matchRepository;
     private final PlayerParticipationRepository playerParticipationRepository;
@@ -37,6 +38,12 @@ public class MatchController {
         List<Match> matches = matchService.getMatches();
 
         return new ResponseEntity<>(matches, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPlayerParticipations/{matchID}")
+    public ResponseEntity<List<PlayerParticipation>> getPlayerParticipations(@PathVariable Long matchID){
+      Match match =  matchRepository.findById(matchID).orElseThrow( ()->new ResourceNotFoundException("match not found"));
+        return new ResponseEntity<>(match.getParticipationList(), HttpStatus.OK);
     }
 
     @PostMapping("/createMatch")

@@ -39,6 +39,14 @@ public class PlayerParticipation {
         this.reason = reason;
     }
 
-
+    @Override
+    public String toString() {
+        return "PlayerParticipation{" +
+                "id=" + id +
+                ", cancelled=" + cancelled +
+                ", reason='" + reason + '\'' +
+                ", player=" + player.getName() +
+                '}';
+    }
 }
 

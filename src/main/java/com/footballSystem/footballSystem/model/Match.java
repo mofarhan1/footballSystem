@@ -47,5 +47,15 @@ public class Match {
     public List<PlayerParticipation> getParticipationList() {
         return new ArrayList<>(playerParticipationList);
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "id=" + id +
+                ", location='" + location + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                '}';
+    }
 }
 

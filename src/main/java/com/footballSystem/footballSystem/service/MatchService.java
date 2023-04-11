@@ -21,13 +21,7 @@ public class MatchService {
     }
 
     public Match saveMatch(Match match) {
-
-
         matchRepository.save(match);
-
-
-
-
         return matchRepository.save(match);
     }
 
