@@ -9,6 +9,7 @@ import com.footballSystem.footballSystem.repository.PlayerParticipationRepositor
 import com.footballSystem.footballSystem.repository.PlayerRepository;
 import com.footballSystem.footballSystem.service.MatchService;
 import com.footballSystem.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class MatchController {
     }
 
     @PostMapping("/createMatch")
-    public ResponseEntity<Match> saveMatch(@RequestBody Match match){
+    public ResponseEntity<Match> saveMatch(@Valid @RequestBody Match match){
 
         Match msavedMatch =   matchService.saveMatch(match);
 
@@ -56,14 +57,8 @@ public class MatchController {
 
     @PostMapping("/createPlayerParticipation/{playerID}/{matchID}")
     public ResponseEntity<PlayerParticipation> createPlayerParticipation(@PathVariable Long playerID,@PathVariable Long matchID){
-        PlayerParticipation playerParticipation = new PlayerParticipation();
-        Player player = playerRepository.findById(playerID).orElseThrow( ()->new ResourceNotFoundException("Player not found"));
-        Match match = matchRepository.findById(matchID).orElseThrow( ()->new ResourceNotFoundException("Match not found"));
-        playerParticipation.setPlayer(player);
-        match.getPlayerParticipationList().add(playerParticipation);
 
-        PlayerParticipation savedPlayerParticipation =  playerParticipationRepository.save(playerParticipation);
-
+        PlayerParticipation savedPlayerParticipation = matchService.createPlayerParticipation(playerID,matchID);
 
         return new ResponseEntity<>( savedPlayerParticipation, HttpStatus.OK);
     }

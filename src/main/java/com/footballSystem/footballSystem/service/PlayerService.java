@@ -1,5 +1,6 @@
 package com.footballSystem.footballSystem.service;
 
+import com.footballSystem.ResourceNotFoundException;
 import com.footballSystem.footballSystem.model.Match;
 import com.footballSystem.footballSystem.model.Player;
 import com.footballSystem.footballSystem.repository.PlayerRepository;
@@ -25,5 +26,11 @@ public class PlayerService {
 
     public List<Player> getPlayers() {
         return  (List<Player>) playerRepository.findAll();
+    }
+
+    public Player getPlayer(Long id) {
+        Player player =  playerRepository.findById(id).
+                orElseThrow( ()->new ResourceNotFoundException("Player not found"));
+        return player;
     }
 }

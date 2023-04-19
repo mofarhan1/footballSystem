@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 
-const Playerparticipations= ({playerparticipations, setPlayerparticipations,param}) => {
+const Playerparticipations= ({playerparticipations, setPlayerparticipations,param,handlePlayerClicked}) => {
     console.log("hej fra Playerparticipations comp");
     console.log(param)
   
@@ -28,13 +28,19 @@ const Playerparticipations= ({playerparticipations, setPlayerparticipations,para
         <h1>Playerparticipations</h1> 
         <div className="playerparticipation">
         {playerparticipations.map((playerparticipation) => (
-            <div key={playerparticipation.id} className="playerparticipation">
+          <div key={playerparticipation.id} className="playerparticipation">
               <p> cancelled : {playerparticipation.cancelled.toString()}</p>
               {playerparticipation.reason !== null && <p>reason: {playerparticipation.reason}</p>}
               <p>id:{playerparticipation.id}</p>
+              <div>
+              <textarea>jscnsncksnck</textarea>
+              </div>
+              
             </div>
             
             ))}
+
+           
         </div>  
       </div>
     );

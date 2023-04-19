@@ -2,6 +2,8 @@ package com.footballSystem.footballSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +29,7 @@ public class Player {
     private Long id;
 
     @Column(name = "name")
+    @NotBlank(message="name is required")
     private String name;
 
     public Player(String name, String birthYear) {
@@ -35,6 +38,7 @@ public class Player {
     }
 
     @Column(name = "birth_year")
+    @NotBlank(message="birthYear is required")
     private String birthYear;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)

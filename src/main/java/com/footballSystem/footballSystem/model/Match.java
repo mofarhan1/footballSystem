@@ -2,6 +2,8 @@ package com.footballSystem.footballSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +26,11 @@ public class Match {
     private Long id;
 
     @Column(name = "location")
+    @NotBlank(message = "Location is required")
     private String location;
 
     @Column(name = "date")
+    @NotNull(message = "date is required")
     private LocalDate date;
 
     public Match(String location, LocalDate date, LocalTime time) {
@@ -36,6 +40,7 @@ public class Match {
     }
 
     @Column(name = "time")
+    @NotNull(message = "time is required")
     private LocalTime time;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
