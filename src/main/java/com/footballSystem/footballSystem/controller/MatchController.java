@@ -42,10 +42,12 @@ public class MatchController {
     }
 
     @GetMapping("/getPlayerParticipations/{matchID}")
-    public ResponseEntity<List<PlayerParticipation>> getPlayerParticipations(@PathVariable Long matchID){
-      Match match =  matchRepository.findById(matchID).orElseThrow( ()->new ResourceNotFoundException("match not found"));
-        return new ResponseEntity<>(match.getParticipationList(), HttpStatus.OK);
+    public ResponseEntity<List<PlayerParticipation>> getPlayerParticipationsForMatch(@PathVariable Long matchID){
+      List<PlayerParticipation> playerParticipations =  matchService.getPlayerParticipationsForMatch(matchID);
+        return new ResponseEntity<>(playerParticipations, HttpStatus.OK);
     }
+
+
 
     @PostMapping("/createMatch")
     public ResponseEntity<Match> saveMatch(@Valid @RequestBody Match match){
@@ -65,18 +67,8 @@ public class MatchController {
 
     @GetMapping("/getSalary/{playerID}")
     public ResponseEntity<Double> getSalary(@PathVariable Long playerID){
-        double sal=0.0;
-        Player player = playerRepository.findById(playerID).orElseThrow( ()->new ResourceNotFoundException("Player not found"));
-        if( player instanceof ProPlayer){
-             sal = ((ProPlayer)player).salary();
-
-        }
-        else {
-
-            sal = player.salary();
-        }
-
-        return new ResponseEntity<>( sal, HttpStatus.OK);
+        double salary = matchService.getSalary(playerID);
+        return new ResponseEntity<>( salary, HttpStatus.OK);
     }
 
 

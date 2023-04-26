@@ -28,8 +28,6 @@ public class PlayerParticipation {
     @JsonIgnore
     private Player player;
 
-
-
     public PlayerParticipation() {
         this.cancelled = false;
         this.reason = null;

@@ -1,6 +1,7 @@
 package com.footballSystem.footballSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +22,7 @@ import java.util.List;
 @DiscriminatorColumn(
         name = "player_type",
         discriminatorType = DiscriminatorType.STRING)
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Player {
 
     @Id

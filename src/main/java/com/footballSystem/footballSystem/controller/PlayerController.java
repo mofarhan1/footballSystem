@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class PlayerController {
     private final PlayerService playerService;
 
@@ -30,6 +31,12 @@ public class PlayerController {
     public ResponseEntity<Player> getPlayers(@PathVariable Long id,@Valid @RequestBody Player player) {
         Player player1 =  playerService.getPlayer(id);
         return new ResponseEntity<>(player1, HttpStatus.OK);
+    }
+
+    @GetMapping("/GetPlayerForPlayerParticipation/{playerParticipationID}")
+    public ResponseEntity<Player> GetPlayerForPlayerParticipation(@PathVariable Long playerParticipationID){
+        Player player =  playerService.GetPlayerforPlayerParticipation(playerParticipationID);
+        return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
     @GetMapping("/getPlayer")
