@@ -2,5 +2,5 @@
 
 
 # Swagger ui documentation
-### URL : http://localhost:8080/api/createMatch
+### URL : http://localhost:8080/swagger-ui/index.html#
 
