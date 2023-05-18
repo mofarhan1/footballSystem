@@ -9,17 +9,21 @@ import com.footballSystem.footballSystem.repository.PlayerParticipationRepositor
 import com.footballSystem.footballSystem.repository.PlayerRepository;
 import com.footballSystem.footballSystem.service.MatchService;
 import com.footballSystem.ResourceNotFoundException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/match")
 @CrossOrigin
+@Validated
 public class MatchController {
     private final MatchRepository matchRepository;
     private final PlayerParticipationRepository playerParticipationRepository;
@@ -50,8 +54,7 @@ public class MatchController {
 
 
     @PostMapping("/createMatch")
-    public ResponseEntity<Match> saveMatch(@Valid @RequestBody Match match){
-
+    public ResponseEntity<Match> saveMatch(@Valid @RequestBody Match match) throws Exception{
         Match msavedMatch =   matchService.saveMatch(match);
 
         return new ResponseEntity<>(msavedMatch, HttpStatus.OK);
@@ -71,7 +74,22 @@ public class MatchController {
         return new ResponseEntity<>( salary, HttpStatus.OK);
     }
 
-
-
-
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleValidationException(ConstraintViolationException e) {
+        String errorMessage = e.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Validation error");
+        return ResponseEntity.badRequest().body(errorMessage);
+    }
 }
+
+
+
+
+
+
+
+
+

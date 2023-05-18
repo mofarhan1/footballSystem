@@ -1,10 +1,11 @@
 
 .app {
   padding: 0 100px;
+
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  //align-items: center;
+  //justify-content: center;
+  //text-align: center;
 }
 
 
@@ -34,6 +35,21 @@
     margin: 0;
     font-size: 20px;
     font-weight: bold;
+  }
+
+
+  .button{
+    margin-top: 10%;
+  }
+
+  .input{
+    margin-top: 10%;
+    font-size: 16px;
+  }
+
+  .input-wrapper{
+
+    margin-top: 20%;
   }
 
   

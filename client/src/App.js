@@ -10,7 +10,7 @@ function App() {
   const [player,setPlayer] = React.useState([])
   const [param, setParam] = React.useState(null);
 
-  const handleClick = (val) => {
+  const handleMatchClick = (val) => {
     console.log("handleClick App")
     setParam(val);
   };
@@ -26,7 +26,7 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Matches matches={matches} setMatches={setMatches} handleClick={handleClick} />} />
+          <Route path="/" element={<Matches matches={matches} setMatches={setMatches} handleClick={handleMatchClick} />} />
           <Route path="/getPlayerParticipations/:id" element={<Playerparticipations playerparticipations={playerparticipations} setPlayerparticipations={setPlayerparticipations} param={param} handlePlayerparticipationClicked={handlePlayerparticipationClicked} />} />
           <Route path="/getPlayer/:id" element={<Players player={player} setPlayer={setPlayer} param={param}/>} />
         </Routes>

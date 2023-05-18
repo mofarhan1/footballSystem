@@ -43,7 +43,7 @@ public class DatabaseInitializer implements CommandLineRunner {
        Player player6 = new ProPlayer("Mathias","1985",5500);
        playerRepository.saveAll(Arrays.asList(player1, player2, player3, player4,player5, player6));
 
-       Match match1 = new Match("Randers", LocalDate.now().plusWeeks(1),LocalTime.of(12, 00, 00));
+       Match match1 = new Match("Randers", LocalDate.now().plusWeeks(1),LocalTime.of(12, 30, 00));
        Match match2 = new Match("Herning", LocalDate.now().plusWeeks(2),LocalTime.of(13, 00, 00));
        Match match3 = new Match("Ikast", LocalDate.now().plusWeeks(3),LocalTime.of(12, 00, 00));
        matchRepository.saveAll(Arrays.asList(match1, match2, match3));
